@@ -1,0 +1,37 @@
+{
+  "name": "apollo-federation-skeleton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "----- DOCKER DEVELOPER -----": "",
+    "dev-start": "docker-compose up -d --build && docker ps && yarn dev-logs",
+    "dev-stop": "docker-compose stop && docker ps",
+    "dev-restart": "yarn dev-stop && yarn dev-start",
+    "dev-logs": "docker logs -f --tail 30 apollo_federation_skeleton_local"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glauroqj/apollo-federation-skeleton.git"
+  },
+  "author": "Glauro Q Juliani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glauroqj/apollo-federation-skeleton/issues"
+  },
+  "homepage": "https://github.com/glauroqj/apollo-federation-skeleton#readme",
+  "dependencies": {
+    "@apollo/gateway": "^0.45.0",
+    "apollo-datasource-rest": "^3.5.0",
+    "apollo-server": "^3.6.1",
+    "apollo-server-core": "^3.6.1",
+    "apollo-server-express": "^3.6.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "graphql": "15"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  apollo_federation_skeleton_local:
+    container_name: apollo_federation_skeleton_local
+    privileged: true
+    working_dir: /app
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    depends_on:
+      - apollo_federation_skeleton_local_redis
+    links:
+      - apollo_federation_skeleton_local_redis
+    volumes:
+      - ./:/app
+    env_file:
+      - ./.env
+    ports:
+      - "4004:4004"
+
+  apollo_federation_skeleton_local_redis:
+    container_name: apollo_federation_skeleton_local_redis
+    image: redis:6.0.6-alpine
+    ports:
+      - "6379:6379"
+    links:
+      - apollo_federation_skeleton_local_redis-commander
+
+  apollo_federation_skeleton_local_redis-commander:
+    container_name: apollo_federation_skeleton_local_redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    ports:
+      - "3015:8081"
+    environment:
+      - REDIS_HOSTS=apollo_federation_skeleton_local_redis
