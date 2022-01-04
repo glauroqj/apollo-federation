@@ -3,10 +3,11 @@ FROM node:16.13.1-alpine
 WORKDIR /app
 
 RUN npm install --unsafe-perm --force -g yarn && \
+  yarn global add lerna@4.0.0 && \
   chmod +x /usr/local/bin/yarn
 
 # RUN ls -la
 
-ENTRYPOINT rm -rf node_modules && \
-  yarn && \
-  yarn watch
+ENTRYPOINT lerna clean -y && \
+  lerna bootstrap && \
+  lerna run watch --parallel
