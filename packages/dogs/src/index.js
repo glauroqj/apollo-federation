@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { typedefs, resolvers } from "schema/index.js";
 /** data sources */
-import CatsAPI from "datasources/catsDS.js";
+import DogsAPI from "datasources/dogsDS.js";
 // /** utils */
 // import Logger from "utils/Logger.js";
 
@@ -17,7 +17,7 @@ const startApolloServer = async () => {
     typeDefs: typedefs,
     resolvers,
     dataSources: () => ({
-      catsApi: new CatsAPI(),
+      dogsApi: new DogsAPI(),
     }),
     context: ({ req }) => {
       return {
@@ -36,12 +36,12 @@ const startApolloServer = async () => {
   server.applyMiddleware({ app, path: "/graphql" });
 
   await new Promise((resolve) =>
-    httpServer.listen({ port: process?.env?.PORT || 4005 }, resolve)
+    httpServer.listen({ port: process?.env?.PORT || 4006 }, resolve)
   );
 
   console.log(
     `🚀 Apollo Server is ready at http://localhost:${
-      process?.env?.PORT || 4005
+      process?.env?.PORT || 4006
     }${server.graphqlPath}`
   );
   return { server, app };

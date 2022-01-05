@@ -1,7 +1,7 @@
 import { ApolloError } from "apollo-server-express";
 
 /** queries */
-import CatsQuery from "datasources/catsQuery.js";
+import DogsQuery from "datasources/dogsQuery.js";
 
 const responseError = (error) => {
   const { message, extensions } = error;
@@ -18,7 +18,7 @@ const responseError = (error) => {
 
 const resolvers = {
   Query: {
-    ...CatsQuery(responseError),
+    ...DogsQuery(responseError),
   },
   // Mutation: {}
 };

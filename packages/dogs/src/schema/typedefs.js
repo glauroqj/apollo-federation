@@ -1,14 +1,14 @@
 import { gql } from "apollo-server-express";
 
-import CatsDefs from "typedefs/Cats.graphql";
+import DogsDefs from "typedefs/Dogs.graphql";
 
 const graphqlTypeDefs = gql`
   # LOOK TO QUERIES FILES
   type Query {
-    ImagesSearch: Cats
+    ImagesDog: Dogs
   }
 `;
 
-const typedefs = [graphqlTypeDefs, CatsDefs];
+const typedefs = [graphqlTypeDefs, DogsDefs];
 
 export default typedefs;
