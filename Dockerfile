@@ -10,4 +10,4 @@ RUN npm install --unsafe-perm --force -g yarn && \
 
 ENTRYPOINT lerna clean -y && \
   lerna bootstrap && \
-  lerna run watch --parallel
+  lerna run dev --parallel

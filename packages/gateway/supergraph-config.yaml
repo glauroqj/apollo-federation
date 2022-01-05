@@ -1,0 +1,9 @@
+subgraphs:
+  dogs:
+    routing_url: http://localhost:4001/dogs/graphql
+    schema:
+      subgraph_url: http://localhost:4001/dogs/graphql
+  cats:
+    routing_url: http://localhost:4002/cats/graphql
+    schema:
+      subgraph_url: http://localhost:4002/cats/graphql

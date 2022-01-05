@@ -17,6 +17,8 @@ services:
       - ./.env
     ports:
       - "4004:4004"
+      - "4005:4005"
+      - "4006:4006"
 
   apollo_federation_skeleton_local_redis:
     container_name: apollo_federation_skeleton_local_redis

@@ -2,20 +2,30 @@
   "name": "gateway",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "watch": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/bundle.js",
+    "dev": "rollup -c -w"
   },
   "author": "Glauro Q Juliani",
   "license": "MIT",
   "dependencies": {
-    "@apollo/gateway": "^2.0.0-alpha.2",
-    "graphql": "^16.2.0",
+    "@apollo/gateway": "^0.45.0",
+    "@apollo/rover": "^0.4.1",
     "apollo-datasource-rest": "^3.5.0",
     "apollo-server": "^3.6.1",
     "apollo-server-core": "^3.6.1",
     "apollo-server-express": "^3.6.1",
     "dotenv": "^10.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "graphql": "^16.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@rollup/plugin-alias": "^3.1.9",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-run": "^2.1.0",
+    "rollup": "^2.63.0",
+    "rollup-plugin-graphql-tag": "^0.1.0"
   }
 }

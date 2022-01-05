@@ -1,5 +1,5 @@
-import { gql } from "apollo-server-express";
-
+// import { gql } from "apollo-server-express";
+import { gql } from "apollo-server";
 import CatsDefs from "typedefs/Cats.graphql";
 
 const graphqlTypeDefs = gql`
