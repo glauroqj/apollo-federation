@@ -1,0 +1,8 @@
+type Dogs {
+  data: DogsData
+}
+
+type DogsData {
+  message: String
+  status: String
+}
