@@ -1,3 +1,4 @@
+packages/gateway/supergraph.graphql
 # Logs
 logs
 *.log

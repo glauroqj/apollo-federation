@@ -1,5 +1,10 @@
 {
-  "packages": ["packages/*"],
+  "packages": [
+    "./packages/dogs",
+    "./packages/cats",
+    "./packages/gateway"
+  ],
   "version": "independent",
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "useWorkspaces": true
 }

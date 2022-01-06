@@ -1,14 +1,25 @@
 {
-  "name": "apollo-federation-skeleton",
+  "name": "root",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
+  "workspaces": [
+    "./packages/dogs",
+    "./packages/cats",
+    "./packages/gateway"
+  ],
   "scripts": {
     "----- DOCKER DEVELOPER -----": "",
     "dev-start": "docker-compose up -d --build && docker ps && yarn dev-logs",
     "dev-stop": "docker-compose stop && docker ps",
     "dev-restart": "yarn dev-stop && yarn dev-start",
-    "dev-logs": "docker logs -f --tail 30 apollo_federation_skeleton_local"
+    "dev-logs": "docker logs -f --tail 30 apollo_federation_skeleton_local",
+    "###### | DOCKER COMMON SCRIPTS | ##########################################": "",
+    "delete-all": "yarn delete-containers && yarn delete-images && yarn delete-volumes",
+    "delete-containers": "docker container stop $(docker container ls -qa) && docker container rm $(docker container ls -qa)",
+    "delete-images": "docker image rm $(docker image ls -q)",
+    "delete-volumes": "docker volume rm $(docker volume ls -q)"
   },
   "repository": {
     "type": "git",

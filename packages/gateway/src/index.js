@@ -1,17 +1,16 @@
 import { ApolloServer } from "apollo-server";
-import { ApolloGateway, RemoteGraphQLDataSource } from "@apollo/gateway";
+import { ApolloGateway } from "@apollo/gateway";
 
 import { readFileSync } from "fs";
 import path from "path";
 
 require("dotenv").config();
 
-console.log(readFileSync(path.join() + "/dist/supergraph.graphql").toString());
+// console.log(readFileSync(path.join() + "/dist/supergraph.graphql").toString());
 
 const supergraphSdl = readFileSync(
   path.join() + "/dist/supergraph.graphql"
 ).toString();
-// const supergraphSdl = "";
 
 const gateway = new ApolloGateway({
   supergraphSdl,
@@ -19,10 +18,6 @@ const gateway = new ApolloGateway({
     { name: "cats", url: "http://localhost:4002/cats/graphql" },
     { name: "dogs", url: "http://localhost:4001/dogs/graphql" },
   ],
-  buildService: ({ url }) =>
-    new RemoteGraphQLDataSource({
-      url,
-    }),
 });
 
 const startApolloServer = async () => {

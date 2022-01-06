@@ -5,19 +5,15 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node ./dist/bundle.js",
-    "dev": "rollup -c -w"
+    "dev": "rover supergraph compose --config ./supergraph-config.yaml > ./supergraph.graphql && rollup -c -w"
   },
   "author": "Glauro Q Juliani",
   "license": "MIT",
   "dependencies": {
     "@apollo/gateway": "^0.45.0",
     "@apollo/rover": "^0.4.1",
-    "apollo-datasource-rest": "^3.5.0",
     "apollo-server": "^3.6.1",
-    "apollo-server-core": "^3.6.1",
-    "apollo-server-express": "^3.6.1",
     "dotenv": "^10.0.0",
-    "express": "^4.17.2",
     "graphql": "^16.2.0"
   },
   "devDependencies": {
@@ -26,6 +22,7 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-run": "^2.1.0",
     "rollup": "^2.63.0",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-graphql-tag": "^0.1.0"
   }
 }

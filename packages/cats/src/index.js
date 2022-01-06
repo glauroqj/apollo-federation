@@ -18,8 +18,8 @@ const startApolloServer = async () => {
       typeDefs: typedefs,
       resolvers,
     }),
-    typeDefs: typedefs,
-    resolvers,
+    // typeDefs: typedefs,
+    // resolvers,
     dataSources: () => ({
       catsApi: new CatsAPI(),
     }),
@@ -37,7 +37,7 @@ const startApolloServer = async () => {
       url: "/cats/graphql",
     })
     .then(({ url }) => {
-      console.log(`🚀 Apollo Server - CATS - is ready at ${url}/cats/graphql`);
+      console.log(`🚀 Apollo Server - CATS - is ready at ${url}cats/graphql`);
     })
     .catch((err) => {
       console.error(err);
