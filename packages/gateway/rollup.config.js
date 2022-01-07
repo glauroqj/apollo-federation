@@ -2,7 +2,7 @@ import run from "@rollup/plugin-run";
 import gql from "rollup-plugin-graphql-tag";
 import alias from "@rollup/plugin-alias";
 import copy from "rollup-plugin-copy";
-import { babel } from "@rollup/plugin-babel";
+import cleaner from "rollup-plugin-cleaner";
 
 const dev = process.env.NODE_ENV !== "production";
 
@@ -13,6 +13,9 @@ export default {
     format: "cjs",
   },
   plugins: [
+    cleaner({
+      targets: ["./dist/"],
+    }),
     copy({
       targets: [{ src: "supergraph.graphql", dest: "dist/" }],
     }),
