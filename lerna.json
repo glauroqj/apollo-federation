@@ -1,8 +1,6 @@
 {
   "packages": [
-    "./packages/dogs",
-    "./packages/cats",
-    "./packages/gateway"
+    "./packages/*"
   ],
   "version": "independent",
   "npmClient": "yarn",

@@ -3,11 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
   "workspaces": [
-    "./packages/dogs",
-    "./packages/cats",
-    "./packages/gateway"
+    "./packages/*"
   ],
   "scripts": {
     "----- DOCKER DEVELOPER -----": "",
@@ -32,6 +29,7 @@
   },
   "homepage": "https://github.com/glauroqj/apollo-federation-skeleton#readme",
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "@apollo/rover": "^0.4.1"
   }
 }
