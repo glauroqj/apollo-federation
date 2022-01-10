@@ -1,7 +1,8 @@
 export default (responseError) => {
   const ImagesDog = async (parent, { _ }, { dataSources }, info) => {
     const { dogsApi } = dataSources;
-    // info.cacheControl.setCacheHint({ maxAge: 0, scope: 'PUBLIC' })
+    info.cacheControl.setCacheHint({ maxAge: 60, scope: "PUBLIC" });
+
     try {
       const request = await dogsApi.imagesDog();
       console.log("< DOGS API > ", request);
