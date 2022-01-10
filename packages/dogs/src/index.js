@@ -21,16 +21,16 @@ const createRedisCLient = () => {
   });
 
   client.on("ready", (msg) => {
-    logger.info(
+    console.info(
       `< 🦾 Apollo Server - DOGS - Redis : Status > ${msg ? msg : ""}`
     );
 
     if (process.env.REDIS_DB !== "0") {
       client.select(Number(0), (error, res) => {
         if (res)
-          logger.info(`< ✅ Apollo Server - DOGS - Redis : Select > ${res}`);
+          console.info(`< ✅ Apollo Server - DOGS - Redis : Select > ${res}`);
         if (error)
-          logger.error(
+          console.error(
             `< 🚩 Apollo Server Redis : Error > ${error ? error : ""}`
           );
       });
