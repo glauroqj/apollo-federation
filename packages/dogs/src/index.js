@@ -7,8 +7,8 @@ import DogsAPI from "datasources/dogsDS.js";
 /** utils */
 // import Logger from "utils/Logger.js";
 /** cache */
-import { BaseRedisCache } from "apollo-server-cache-redis";
 import Redis from "ioredis";
+import { BaseRedisCache } from "apollo-server-cache-redis";
 import responseCachePlugin from "apollo-server-plugin-response-cache";
 
 require("dotenv").config();
