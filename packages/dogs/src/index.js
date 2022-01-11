@@ -1,4 +1,5 @@
 import { ApolloServer } from "apollo-server";
+import { ApolloServerPluginCacheControl } from "apollo-server-core";
 
 import { buildSubgraphSchema } from "@apollo/federation";
 import { typedefs, resolvers } from "schema/index.js";
@@ -17,7 +18,7 @@ const RedisIO = Redis;
 
 const createRedisCLient = () => {
   const client = new RedisIO({
-    host: "apollo_federation_skeleton_local_redis",
+    host: process.env.REDIS_HOSTS,
   });
 
   client.on("ready", (msg) => {
@@ -25,16 +26,16 @@ const createRedisCLient = () => {
       `< 🦾 Apollo Server - DOGS - Redis : Status > ${msg ? msg : ""}`
     );
 
-    if (process.env.REDIS_DB !== "0") {
-      client.select(Number(0), (error, res) => {
-        if (res)
-          console.info(`< ✅ Apollo Server - DOGS - Redis : Select > ${res}`);
-        if (error)
-          console.error(
-            `< 🚩 Apollo Server Redis : Error > ${error ? error : ""}`
-          );
-      });
-    }
+    client.select(Number(0), (error, res) => {
+      if (res)
+        console.info(`< ✅ Apollo Server - DOGS - Redis : Select > ${res}`);
+      if (error)
+        console.error(
+          `< 🚩 Apollo Server Redis : Error > ${error ? error : ""}`
+        );
+    });
+    // if (process.env.REDIS_DB !== "0") {
+    // }
   });
 
   return client;
@@ -42,23 +43,20 @@ const createRedisCLient = () => {
 
 const startApolloServer = async () => {
   const PORT = process?.env?.PORT || 4001;
-  // const app = express();
 
-  // const httpServer = http.createServer(app);
   const server = new ApolloServer({
     cache: new BaseRedisCache({
       client: createRedisCLient(),
     }),
-    cacheControl: {
-      defaultMaxAge: 20,
-      calculateHttpHeaders: true,
-    },
+    // persistedQueries: {
+    //   cache: new BaseRedisCache({
+    //     client: createRedisCLient(),
+    //   }),
+    // },
     schema: buildSubgraphSchema({
       typeDefs: typedefs,
       resolvers,
     }),
-    // typeDefs: typedefs,
-    // resolvers,
     dataSources: () => ({
       dogsApi: new DogsAPI(),
     }),
@@ -67,7 +65,13 @@ const startApolloServer = async () => {
         fullHeaders: req.headers,
       };
     },
-    plugins: [responseCachePlugin()],
+    plugins: [
+      responseCachePlugin(),
+      ApolloServerPluginCacheControl({
+        defaultMaxAge: 60,
+        calculateHttpHeaders: true,
+      }),
+    ],
   });
 
   server

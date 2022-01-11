@@ -27,6 +27,7 @@ const startApolloServer = async () => {
   const server = new ApolloServer({
     gateway,
     subscriptions: false,
+    introspection: true,
   });
 
   server
@@ -35,7 +36,7 @@ const startApolloServer = async () => {
       url: "/graphql",
     })
     .then(({ url }) => {
-      console.log(`🚀 Apollo Gateway is ready at ${url}`);
+      console.log(`🚀 Apollo Gateway is ready at ${url}graphql`);
     })
     .catch((err) => {
       console.error(err);
