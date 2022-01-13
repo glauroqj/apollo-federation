@@ -5,6 +5,8 @@ import { buildSubgraphSchema } from "@apollo/federation";
 import { typedefs, resolvers } from "schema/index.js";
 /** data sources */
 import DogsAPI from "datasources/dogsDS.js";
+import v1_app_DogsAPI from "datasources/v1_app_dogsDS.js";
+import v2_app_DogsAPI from "datasources/v2_app_dogsDS.js";
 /** utils */
 // import Logger from "utils/Logger.js";
 /** cache */
@@ -48,17 +50,14 @@ const startApolloServer = async () => {
     cache: new BaseRedisCache({
       client: createRedisCLient(),
     }),
-    // persistedQueries: {
-    //   cache: new BaseRedisCache({
-    //     client: createRedisCLient(),
-    //   }),
-    // },
     schema: buildSubgraphSchema({
       typeDefs: typedefs,
       resolvers,
     }),
     dataSources: () => ({
       dogsApi: new DogsAPI(),
+      v1_app_dogsApi: new v1_app_DogsAPI(),
+      v2_app_dogsApi: new v2_app_DogsAPI(),
     }),
     context: ({ req }) => {
       return {

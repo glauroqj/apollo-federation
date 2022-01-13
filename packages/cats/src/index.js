@@ -53,8 +53,6 @@ const startApolloServer = async () => {
       typeDefs: typedefs,
       resolvers,
     }),
-    // typeDefs: typedefs,
-    // resolvers,
     dataSources: () => ({
       catsApi: new CatsAPI(),
     }),
