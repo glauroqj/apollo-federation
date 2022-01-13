@@ -1,0 +1,8 @@
+type v1_app_Dogs {
+  data: v1_app_DogsData @deprecated(reason: "Use `v2_app_Dogs")
+}
+
+type v1_app_DogsData {
+  message: String
+  status: String
+}
