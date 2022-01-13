@@ -3,6 +3,7 @@ type Dogs {
 }
 
 type DogsData {
-  message: String
+  message: String @deprecated(reason: "Use newMessages instead message")
+  newMessages: String
   status: String
 }

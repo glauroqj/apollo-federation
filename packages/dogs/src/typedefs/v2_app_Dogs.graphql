@@ -1,9 +1,0 @@
-type v2_app_Dogs {
-  data: v2_app_DogsData
-}
-
-type v2_app_DogsData {
-  message: String
-  status: String
-  extraInfo: String
-}
