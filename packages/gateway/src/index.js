@@ -25,11 +25,14 @@ const gateway = new ApolloGateway({
       willSendRequest({ request, context }) {
         const applicationTypeHeader =
           context?.req?.headers["x-application-type"];
-        const operationName = context.req.body.operationName;
-        console.log("< GATEWAY > ", name, url, operationName);
+
+        console.log("< GATEWAY > ", name, url);
 
         request.http.headers.set("x-application-type", applicationTypeHeader);
-        request.http.headers.set("x-application-operation-name", operationName);
+        request.http.headers.set(
+          "x-application-operation-name",
+          context.operationName
+        );
       },
     });
   },
@@ -45,6 +48,7 @@ const startApolloServer = async () => {
     introspection: true,
     context: ({ req }) => ({
       req,
+      operationName: req.body.operationName,
     }),
   });
 

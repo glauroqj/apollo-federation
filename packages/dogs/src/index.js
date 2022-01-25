@@ -56,8 +56,9 @@ const logs = {
       const applicationTypeHeader = context?.fullHeaders["x-application-type"];
       const operationName =
         context?.fullHeaders["x-application-operation-name"];
+
       // console.log(
-      //   `[ REQUEST ][ ${applicationTypeHeader} ][ ${request?.operationName} ]`,
+      //   `[ REQUEST ][ ${applicationTypeHeader} ][ ${operationName} ]`,
       //   payload
       // );
 
@@ -83,7 +84,7 @@ const logs = {
           };
 
           console.log(
-            `[ RESPONSE ][ ${applicationTypeHeader} ][ ${operationName} ]`,
+            `[ DOGS ][ RESPONSE ][ ${applicationTypeHeader} ][ ${operationName} ]`,
             payload
           );
         },
