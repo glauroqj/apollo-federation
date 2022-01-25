@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node ./dist/bundle.js",
-    "dev": "wait-on wait/wait-local-config.js && rm -rf ./supergraph.graphql && rover supergraph compose --config ./supergraph-config.yaml > ./supergraph.graphql && rollup -c -w"
+    "dev": "wait-on -c wait/wait-local-config.js && rm -rf ./supergraph.graphql && rover supergraph compose --config ./supergraph-config.yaml > ./supergraph.graphql && rollup -c -w"
   },
   "author": "Glauro Q Juliani",
   "license": "MIT",

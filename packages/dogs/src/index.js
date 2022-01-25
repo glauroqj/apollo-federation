@@ -45,17 +45,16 @@ const logs = {
   // Fires whenever a GraphQL request is received from a client.
   async requestDidStart(requestContext) {
     const { request, context } = requestContext;
+    const applicationTypeHeader = context?.fullHeaders["x-application-type"];
+    const operationName = context?.fullHeaders["x-application-operation-name"];
 
-    if (request.query.indexOf("IntrospectionQuery") < 0) {
+    if (request.query.indexOf("IntrospectionQuery") < 0 && operationName) {
       const payload = {
         request: {
           query: request?.query,
           variables: request?.variables,
         },
       };
-      const applicationTypeHeader = context?.fullHeaders["x-application-type"];
-      const operationName =
-        context?.fullHeaders["x-application-operation-name"];
 
       // console.log(
       //   `[ REQUEST ][ ${applicationTypeHeader} ][ ${operationName} ]`,
