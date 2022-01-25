@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node ./dist/bundle.js",
-    "dev": "rm -rf ./supergraph.graphql && rover supergraph compose --config ./supergraph-config.yaml > ./supergraph.graphql && rollup -c -w"
+    "dev": "wait-on wait/wait-local-config.js && rm -rf ./supergraph.graphql && rover supergraph compose --config ./supergraph-config.yaml > ./supergraph.graphql && rollup -c -w"
   },
   "author": "Glauro Q Juliani",
   "license": "MIT",
@@ -13,7 +13,8 @@
     "@apollo/gateway": "^0.45.0",
     "apollo-server": "^3.6.1",
     "dotenv": "^10.0.0",
-    "graphql": "^16.2.0"
+    "graphql": "^16.2.0",
+    "wait-on": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

@@ -41,6 +41,58 @@ const createRedisCLient = () => {
   return client;
 };
 
+const logs = {
+  // Fires whenever a GraphQL request is received from a client.
+  async requestDidStart(requestContext) {
+    const { request, context } = requestContext;
+
+    if (request.query.indexOf("IntrospectionQuery") < 0) {
+      const payload = {
+        request: {
+          query: request?.query,
+          variables: request?.variables,
+        },
+      };
+      const applicationTypeHeader = context?.fullHeaders["x-application-type"];
+
+      console.log(
+        `[ REQUEST ][ ${applicationTypeHeader} ][ ${request?.operationName} ]`,
+        payload
+      );
+
+      return {
+        async willSendResponse(requestContext) {
+          const { request, response, context } = requestContext;
+
+          // const _getDataValue = () => {
+          //   const cloneData = Object.assign({}, response?.data)
+
+          //   for (const value in cloneData) {
+          //     const data = cloneData[value]
+          //     console.log( JSON.stringify(data).length )
+          //   }
+          // }
+
+          const payload = {
+            response: {
+              errors: response?.errors || "none",
+              data: JSON.stringify({ ...response?.data }),
+              extensions: response?.extensions || "none",
+            },
+          };
+
+          console.log("< REQUEST > ", context?.req?.headers);
+
+          console.log(
+            `[ RESPONSE ][ ${applicationTypeHeader} ][ ${request?.operationName} ]`,
+            payload
+          );
+        },
+      };
+    }
+  },
+};
+
 const startApolloServer = async () => {
   const PORT = process?.env?.PORT || 4001;
 
@@ -56,11 +108,14 @@ const startApolloServer = async () => {
       dogsApi: new DogsAPI(),
     }),
     context: ({ req }) => {
+      console.log("< DOGS HEADERS > ", req.headers);
+
       return {
         fullHeaders: req.headers,
       };
     },
     plugins: [
+      logs,
       responseCachePlugin(),
       ApolloServerPluginCacheControl({
         defaultMaxAge: 60,

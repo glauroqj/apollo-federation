@@ -20,37 +20,6 @@ const gateway = new ApolloGateway({
   ],
 });
 
-const logs = {
-  // Fires whenever a GraphQL request is received from a client.
-  async requestDidStart(requestContext) {
-    const { request, context } = requestContext;
-    if (request.query.indexOf("IntrospectionQuery") < 0) {
-      const payload = {
-        request: {
-          query: request?.query,
-          variables: request?.variables,
-        },
-      };
-    }
-    const applicationTypeHeader = context?.fullHeaders["x-application-type"];
-    console.log(`Application Type: ${applicationTypeHeader}`);
-
-    return {
-      // Fires whenever Apollo Server will parse a GraphQL
-      // request to create its associated document AST.
-      async parsingDidStart(requestContext) {
-        console.log("Parsing started!");
-      },
-
-      // Fires whenever Apollo Server will validate a
-      // request's document AST against your GraphQL schema.
-      async validationDidStart(requestContext) {
-        console.log("Validation started!");
-      },
-    };
-  },
-};
-
 const startApolloServer = async () => {
   const PORT = process?.env?.PORT || 4000;
   // const app = express();
@@ -59,12 +28,12 @@ const startApolloServer = async () => {
     gateway,
     subscriptions: false,
     introspection: true,
-    plugins: [logs],
-    context: ({ req }) => {
-      return {
-        fullHeaders: req.headers,
-      };
-    },
+    context: ({ req }) => ({
+      req,
+      fullHeader: {
+        ...req.headers,
+      },
+    }),
   });
 
   server
