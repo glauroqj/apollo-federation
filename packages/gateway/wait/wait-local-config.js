@@ -8,11 +8,11 @@ const opts = {
 };
 
 waitOn(opts)
-  .then(function () {
+  .then(() => {
     // once here, all resources are available
     console.log("< WAIT-ON : ALL RESOUCERS OK >");
   })
-  .catch(function (err) {
+  .catch((err) => {
     handleError(err);
   });
 

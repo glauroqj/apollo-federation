@@ -1,5 +1,5 @@
 import { ApolloServer } from "apollo-server";
-import { ApolloGateway } from "@apollo/gateway";
+import { ApolloGateway, RemoteGraphQLDataSource } from "@apollo/gateway";
 
 import { readFileSync } from "fs";
 import path from "path";
@@ -18,6 +18,21 @@ const gateway = new ApolloGateway({
     { name: "cats", url: "http://localhost:4002/cats/graphql" },
     { name: "dogs", url: "http://localhost:4001/dogs/graphql" },
   ],
+  buildService({ name, url }) {
+    return new RemoteGraphQLDataSource({
+      url,
+      name,
+      willSendRequest({ request, context }) {
+        const applicationTypeHeader =
+          context?.req?.headers["x-application-type"];
+        const operationName = context.req.body.operationName;
+        console.log("< GATEWAY > ", name, url, operationName);
+
+        request.http.headers.set("x-application-type", applicationTypeHeader);
+        request.http.headers.set("x-application-operation-name", operationName);
+      },
+    });
+  },
 });
 
 const startApolloServer = async () => {
@@ -30,9 +45,6 @@ const startApolloServer = async () => {
     introspection: true,
     context: ({ req }) => ({
       req,
-      fullHeader: {
-        ...req.headers,
-      },
     }),
   });
 

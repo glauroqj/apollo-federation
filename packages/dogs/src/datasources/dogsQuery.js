@@ -5,7 +5,6 @@ export default (responseError) => {
 
     try {
       const request = await dogsApi.imagesDog();
-      console.log("< DOGS API > ", request);
 
       return {
         data: {

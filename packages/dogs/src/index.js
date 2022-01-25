@@ -54,11 +54,12 @@ const logs = {
         },
       };
       const applicationTypeHeader = context?.fullHeaders["x-application-type"];
-
-      console.log(
-        `[ REQUEST ][ ${applicationTypeHeader} ][ ${request?.operationName} ]`,
-        payload
-      );
+      const operationName =
+        context?.fullHeaders["x-application-operation-name"];
+      // console.log(
+      //   `[ REQUEST ][ ${applicationTypeHeader} ][ ${request?.operationName} ]`,
+      //   payload
+      // );
 
       return {
         async willSendResponse(requestContext) {
@@ -81,10 +82,8 @@ const logs = {
             },
           };
 
-          console.log("< REQUEST > ", context?.req?.headers);
-
           console.log(
-            `[ RESPONSE ][ ${applicationTypeHeader} ][ ${request?.operationName} ]`,
+            `[ RESPONSE ][ ${applicationTypeHeader} ][ ${operationName} ]`,
             payload
           );
         },
@@ -108,8 +107,6 @@ const startApolloServer = async () => {
       dogsApi: new DogsAPI(),
     }),
     context: ({ req }) => {
-      console.log("< DOGS HEADERS > ", req.headers);
-
       return {
         fullHeaders: req.headers,
       };
